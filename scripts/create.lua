@@ -1,11 +1,17 @@
 local database = ARGV[1]
 local values = redis.call("HVALS", "databases")
-local index = #values + 1
+local index = redis.call("HGET", "databases", database)
+
+if (index) then
+    return index
+else
+    index = #values + 1
+end
 
 table.sort(values)
 
 for i=1,#values do
-    if (i ~= tonumber(values[i])) then
+    if (tostring(i) ~= values[i]) then
         index = i
         break
     end
