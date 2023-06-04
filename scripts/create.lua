@@ -8,15 +8,10 @@ else
     index = #values + 1
 end
 
-local numbers = {}
+table.sort(values, function(a, b) return tonumber(a) < tonumber(b) end)
+
 for i=1,#values do
-    numbers[i] = tonumber(values[i])
-end
-
-table.sort(numbers)
-
-for i=1,#numbers do
-    if (i ~= numbers[i]) then
+    if (tostring(i) ~= values[i]) then
         index = i
         break
     end
